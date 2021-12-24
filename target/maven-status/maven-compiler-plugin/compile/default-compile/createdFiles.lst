@@ -1,0 +1,10 @@
+br/com/gitcrib/model/Project.class
+br/com/gitcrib/model/Founder$FounderBuilder.class
+br/com/gitcrib/model/Contributor.class
+br/com/gitcrib/model/Project$ProjectBuilder.class
+br/com/gitcrib/model/Task.class
+br/com/gitcrib/model/Founder.class
+br/com/gitcrib/enums/StatusTasksEnum.class
+br/com/gitcrib/enums/StatusProjectEnum.class
+br/com/gitcrib/model/Contributor$ContributorBuilder.class
+br/com/gitcrib/GitcribApplication.class

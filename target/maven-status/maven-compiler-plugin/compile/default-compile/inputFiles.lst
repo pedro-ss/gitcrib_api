@@ -1,0 +1,7 @@
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/model/Task.java
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/model/Contributor.java
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/GitcribApplication.java
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/model/Founder.java
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/enums/StatusProjectEnum.java
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/enums/StatusTasksEnum.java
+/home/pedross/git/ifpe/projetos-fim-unidade/gitcrib_api/src/main/java/br/com/gitcrib/model/Project.java
