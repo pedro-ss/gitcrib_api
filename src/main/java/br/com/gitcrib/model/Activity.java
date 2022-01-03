@@ -1,10 +1,12 @@
 package br.com.gitcrib.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,15 +22,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "ACTIVITY")
 public class Activity {
     
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "CONTRIBUTOR_ID")
+    @OneToOne
+    @JoinColumn(name = "CONTRIBUTOR", referencedColumnName = "ID")
     private Contributor contributor;
 
-
-    @Column(name = "TASK_ID")
+    @OneToOne
+    @JoinColumn(name = "TASK", referencedColumnName = "ID")
     private Task task;
 }

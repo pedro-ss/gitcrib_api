@@ -39,5 +39,5 @@ public class Task {
     
     @ManyToOne
     @JoinColumn(name = "PROJECT", referencedColumnName = "ID")
-    private Project projectid;
+    private Project project;
 }

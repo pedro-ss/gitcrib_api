@@ -8,39 +8,47 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gitcrib.model.Contributor;
+import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.service.ContributorService;
 
 @RestController
+@RequestMapping("/contributor")
 public class ContributorController {
     
     @Autowired
     private ContributorService contributorService;
 
     @PostMapping("/save-contributor")
-    public Contributor cadastrarContributor(Contributor contributor) {
-        return contributorService.cadastrarContributor(contributor);
+    @ResponseBody
+    public ContributorDTO cadastrarContributor(@RequestBody ContributorDTO ContributorDTO) {
+        return contributorService.cadastrarContributor(ContributorDTO);
     }
 
     @GetMapping("/find-contributor")
-    public Optional<Contributor> consultarContributor(Integer contributorId) {
-        return contributorService.consultarContributor(contributorId);
+    @ResponseBody
+    public Optional<ContributorDTO> consultarContributor(@RequestBody ContributorDTO ContributorDTO) {
+        return contributorService.consultarContributor(ContributorDTO.getContributorId());
     }
 
     @GetMapping("/list-contributors")
-    public List<Contributor> consultarContributors() {
+    @ResponseBody
+    public List<ContributorDTO> consultarContributors() {
         return contributorService.consultarContributors();
     }
 
     @DeleteMapping("/delete-contributor")
-    public void deletarContributor(Integer contributorId) {
-        contributorService.deletarContributor(contributorId);
+    public void deletarContributorDTO(@RequestBody ContributorDTO contributorDTO) {
+        contributorService.deletarContributor(contributorDTO.getContributorId());
     }
 
     @PutMapping("/update-contributor")
-    public Contributor alterarContributor(Contributor contributor) {
-        return contributorService.alterarContributor(contributor);
+    @ResponseBody
+    public ContributorDTO alterarContributorDTO(@RequestBody ContributorDTO ContributorDTO) {
+        return contributorService.alterarContributor(ContributorDTO);
     }
 }

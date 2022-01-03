@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gitcrib.dao.TaskDao;
+import br.com.gitcrib.dto.TaskDTO;
+import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.model.Task;
 
 @Service
@@ -15,23 +17,46 @@ public class TaskService {
     @Autowired
     private TaskDao taskDao;
 
-    public Task cadastrarTask(Task task) {
-        return taskDao.save(task);
+    public TaskDTO cadastrarTask(TaskDTO task) {
+        return convertTaskToDTO(taskDao.save(convertDTOToTask(task)));
     }
 
-    public Optional<Task> consultarTask(Integer taskId) {
-        return taskDao.findById(taskId);
+    public Optional<TaskDTO> consultarTask(Integer taskId) {
+        return taskDao.findById(taskId).stream().map(this::convertTaskToDTO).findFirst();
     }
 
     public void deletarTask(Integer taskId) {
         taskDao.deleteById(taskId);
     }
 
-    public List<Task> consultarTasks() {
-        return taskDao.findAll();
+    public List<TaskDTO> consultarTasks() {
+        return taskDao.findAll().stream().map(this::convertTaskToDTO).toList();
     }
 
-    public Task alterarTask(Task task) {
-        return taskDao.save(task);
+    public TaskDTO alterarTask(TaskDTO task) {
+        return convertTaskToDTO(taskDao.save(convertDTOToTask(task)));
+    }
+    
+    private TaskDTO convertTaskToDTO(Task task) {
+    	TaskDTO taskDTO = new TaskDTO();
+    	taskDTO.setTaskId(task.getId());
+    	taskDTO.setTitle(task.getTitle());
+    	taskDTO.setDescription(task.getDescription());
+    	if(task.getProject() != null) {
+    		taskDTO.setProject(task.getProject());
+    		taskDTO.setProjectId(task.getProject().getId());
+    	}
+    	taskDTO.setStatus(task.getStatus());
+    	return taskDTO;
+    }
+    
+    private Task convertDTOToTask(TaskDTO taskDTO) {
+    	Task task = new Task();
+    	task.setId(taskDTO.getTaskId());
+    	task.setTitle(taskDTO.getTitle());
+    	task.setDescription(taskDTO.getDescription());
+    	task.setProject(taskDTO.getProject());
+    	task.setStatus(taskDTO.getStatus());
+		return task;
     }
 }
