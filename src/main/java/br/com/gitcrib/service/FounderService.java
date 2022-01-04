@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gitcrib.dao.FounderDao;
+import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.dto.FounderDTO;
+import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.model.Founder;
 
 @Service
