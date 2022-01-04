@@ -1,5 +1,6 @@
 package br.com.gitcrib.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,16 +22,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "ACTIVITY")
 public class Activity {
     
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "CONTRIBUTOR_ID")
+    @JoinColumn(name = "CONTRIBUTOR", referencedColumnName = "ID")
     private Contributor contributor;
 
     @OneToOne
-    @JoinColumn(name = "TASK_ID")
+    @JoinColumn(name = "TASK", referencedColumnName = "ID")
     private Task task;
 }

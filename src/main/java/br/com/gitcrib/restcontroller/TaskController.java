@@ -8,39 +8,49 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.gitcrib.dto.TaskDTO;
 import br.com.gitcrib.model.Task;
 import br.com.gitcrib.service.TaskService;
 
 @RestController
+@RequestMapping("/task")
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
 
     @PostMapping("/save-task")
-    public Task cadastrarTask(Task task) {
+    @ResponseBody
+    public TaskDTO cadastrarTask(@RequestBody TaskDTO task) {
         return taskService.cadastrarTask(task);
     }
 
     @GetMapping("/find-task")
-    public Optional<Task> consultarTask(Integer taskId) {
-        return taskService.consultarTask(taskId);
+    @ResponseBody
+    public Optional<TaskDTO> consultarTask(@RequestBody TaskDTO task) {
+        return taskService.consultarTask(task.getTaskId());
     }
 
     @GetMapping("/list-tasks")
-    public List<Task> consultarTasks() {
+    @ResponseBody
+    public List<TaskDTO> consultarTasks() {
         return taskService.consultarTasks();
     }
 
     @DeleteMapping("/delete-task")
-    public void deletarTask(Integer taskId) {
-        taskService.deletarTask(taskId);
+    @ResponseBody
+    public void deletarTask(@RequestBody TaskDTO task) {
+        taskService.deletarTask(task.getTaskId());
     }
 
     @PutMapping("/update-task")
-    public Task alterarTask(Task task) {
+    @ResponseBody
+    public TaskDTO alterarTask(@RequestBody TaskDTO task) {
         return taskService.alterarTask(task);
     }
 }

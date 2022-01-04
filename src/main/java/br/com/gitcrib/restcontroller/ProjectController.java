@@ -8,39 +8,47 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.gitcrib.model.Project;
+import br.com.gitcrib.dto.ProjectDTO;
 import br.com.gitcrib.service.ProjectService;
 
 @RestControllerAdvice
+@RequestMapping("/project")
 public class ProjectController {
     
     @Autowired
     private ProjectService projectService;
 
     @PostMapping("/save-project")
-    public Project cadastrarProject(Project project) {
+    @ResponseBody
+    public ProjectDTO cadastrarProject(@RequestBody ProjectDTO project) {
         return projectService.cadastrarProject(project);
     }
 
     @GetMapping("/find-project")
-    public Optional<Project> consultarProject(Integer projectId) {
-        return projectService.consultarProject(projectId);
+    @ResponseBody
+    public Optional<ProjectDTO> consultarProject(@RequestBody ProjectDTO project) {
+        return projectService.consultarProject(project.getProjectId());
     }
 
     @GetMapping("/list-projects")
-    public List<Project> consultarProjects() {
+    @ResponseBody
+    public List<ProjectDTO> consultarProjects() {
         return projectService.consultarProjects();
     }
 
     @DeleteMapping("/delete-project")
-    public void deletarProject(Integer projectId) {
-        projectService.deletarProject(projectId);
+    public void deletarProject(@RequestBody ProjectDTO project) {
+        projectService.deletarProject(project.getProjectId());
     }
 
     @PutMapping("/update-project")
-    public Project alterarProject(Project project) {
+    @ResponseBody
+    public ProjectDTO alterarProject(@RequestBody ProjectDTO project) {
         return projectService.alterarProject(project);
     }
 }
