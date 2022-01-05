@@ -3,6 +3,8 @@ package br.com.gitcrib.restcontroller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +27,13 @@ public class ContributorController {
 
     @PostMapping("/save-contributor")
     @ResponseBody
-    public ContributorDTO cadastrarContributor(@RequestBody ContributorDTO ContributorDTO) {
+    public ContributorDTO cadastrarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return contributorService.cadastrarContributor(ContributorDTO);
     }
 
     @GetMapping("/find-contributor")
     @ResponseBody
-    public Optional<ContributorDTO> consultarContributor(@RequestBody ContributorDTO ContributorDTO) {
+    public Optional<ContributorDTO> consultarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return contributorService.consultarContributor(ContributorDTO.getContributorId());
     }
 
@@ -42,13 +44,13 @@ public class ContributorController {
     }
 
     @DeleteMapping("/delete-contributor")
-    public void deletarContributorDTO(@RequestBody ContributorDTO contributorDTO) {
+    public void deletarContributorDTO(@Valid @RequestBody ContributorDTO contributorDTO) {
         contributorService.deletarContributor(contributorDTO.getContributorId());
     }
 
     @PutMapping("/update-contributor")
     @ResponseBody
-    public ContributorDTO alterarContributorDTO(@RequestBody ContributorDTO ContributorDTO) {
+    public ContributorDTO alterarContributorDTO(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return contributorService.alterarContributor(ContributorDTO);
     }
 }

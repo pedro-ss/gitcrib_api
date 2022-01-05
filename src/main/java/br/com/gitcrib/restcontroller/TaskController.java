@@ -3,6 +3,8 @@ package br.com.gitcrib.restcontroller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gitcrib.dto.TaskDTO;
-import br.com.gitcrib.model.Task;
 import br.com.gitcrib.service.TaskService;
 
 @RestController
@@ -26,13 +27,13 @@ public class TaskController {
 
     @PostMapping("/save-task")
     @ResponseBody
-    public TaskDTO cadastrarTask(@RequestBody TaskDTO task) {
+    public TaskDTO cadastrarTask(@Valid @RequestBody TaskDTO task) {
         return taskService.cadastrarTask(task);
     }
 
     @GetMapping("/find-task")
     @ResponseBody
-    public Optional<TaskDTO> consultarTask(@RequestBody TaskDTO task) {
+    public Optional<TaskDTO> consultarTask(@Valid @RequestBody TaskDTO task) {
         return taskService.consultarTask(task.getTaskId());
     }
 
@@ -44,13 +45,13 @@ public class TaskController {
 
     @DeleteMapping("/delete-task")
     @ResponseBody
-    public void deletarTask(@RequestBody TaskDTO task) {
+    public void deletarTask(@Valid @RequestBody TaskDTO task) {
         taskService.deletarTask(task.getTaskId());
     }
 
     @PutMapping("/update-task")
     @ResponseBody
-    public TaskDTO alterarTask(@RequestBody TaskDTO task) {
+    public TaskDTO alterarTask(@Valid @RequestBody TaskDTO task) {
         return taskService.alterarTask(task);
     }
 }

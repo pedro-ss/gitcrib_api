@@ -3,6 +3,8 @@ package br.com.gitcrib.restcontroller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gitcrib.dto.FounderDTO;
-import br.com.gitcrib.model.Founder;
 import br.com.gitcrib.service.FounderService;
 
 @RestController
@@ -26,13 +27,13 @@ public class FounderController {
 
     @PostMapping("/save-founder")
     @ResponseBody
-    public FounderDTO cadastrarFounder(@RequestBody FounderDTO founder) {
+    public FounderDTO cadastrarFounder(@Valid @RequestBody FounderDTO founder) {
         return founderService.cadastrarFounder(founder);
     }
 
     @GetMapping("/find-founder")
     @ResponseBody
-    public Optional<FounderDTO> consultarFounder(@RequestBody FounderDTO founder) {
+    public Optional<FounderDTO> consultarFounder( @Valid@RequestBody FounderDTO founder) {
         return founderService.consultarFounder(founder.getFounderId());
     }
 
@@ -44,13 +45,13 @@ public class FounderController {
 
     @DeleteMapping("/delete-founder")
     @ResponseBody
-    public void deletarFounder(@RequestBody FounderDTO founder) {
+    public void deletarFounder(@Valid @RequestBody FounderDTO founder) {
         founderService.deletarFounder(founder.getFounderId());
     }
 
     @PutMapping("/update-founder")
     @ResponseBody
-    public FounderDTO alterarFounder(@RequestBody FounderDTO founder) {
+    public FounderDTO alterarFounder(@Valid @RequestBody FounderDTO founder) {
         return founderService.alterarFounder(founder);
     }
 
