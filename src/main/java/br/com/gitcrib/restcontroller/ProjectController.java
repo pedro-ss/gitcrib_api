@@ -3,6 +3,8 @@ package br.com.gitcrib.restcontroller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +27,13 @@ public class ProjectController {
 
     @PostMapping("/save-project")
     @ResponseBody
-    public ProjectDTO cadastrarProject(@RequestBody ProjectDTO project) {
+    public ProjectDTO cadastrarProject(@Valid @RequestBody ProjectDTO project) {
         return projectService.cadastrarProject(project);
     }
 
     @GetMapping("/find-project")
     @ResponseBody
-    public Optional<ProjectDTO> consultarProject(@RequestBody ProjectDTO project) {
+    public Optional<ProjectDTO> consultarProject(@Valid @RequestBody ProjectDTO project) {
         return projectService.consultarProject(project.getProjectId());
     }
 
@@ -42,13 +44,13 @@ public class ProjectController {
     }
 
     @DeleteMapping("/delete-project")
-    public void deletarProject(@RequestBody ProjectDTO project) {
+    public void deletarProject(@Valid @RequestBody ProjectDTO project) {
         projectService.deletarProject(project.getProjectId());
     }
 
     @PutMapping("/update-project")
     @ResponseBody
-    public ProjectDTO alterarProject(@RequestBody ProjectDTO project) {
+    public ProjectDTO alterarProject(@Valid @RequestBody ProjectDTO project) {
         return projectService.alterarProject(project);
     }
 }
