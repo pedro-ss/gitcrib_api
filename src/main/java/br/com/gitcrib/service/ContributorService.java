@@ -1,5 +1,6 @@
 package br.com.gitcrib.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,12 @@ public class ContributorService {
     }
 
     public List<ContributorDTO> consultarContributors() {
-        return contributorDao.findAll().stream().map(this::convertContributorToDTO).toList();
+        List<ContributorDTO> listaContribDto = new ArrayList<>();
+		
+		contributorDao.findAll().forEach(contrib -> {
+			listaContribDto.add(convertContributorToDTO(contrib));
+		});
+		return listaContribDto;
 	}
 
     public ContributorDTO alterarContributor(ContributorDTO contributor) {

@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class Contributor {
  
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

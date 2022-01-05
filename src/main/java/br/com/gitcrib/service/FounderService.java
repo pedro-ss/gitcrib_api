@@ -1,5 +1,6 @@
 package br.com.gitcrib.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,12 @@ public class FounderService {
     }
 
     public List<FounderDTO> consultarFounders() {
-        return founderDao.findAll().stream().map(this::convertFounderToDTO).toList();
+        List<FounderDTO> listaFoundeDto = new ArrayList<>();
+		
+		founderDao.findAll().forEach(founder -> {
+			listaFoundeDto.add(convertFounderToDTO(founder));
+		});
+		return listaFoundeDto;
     }
 
     public FounderDTO alterarFounder(FounderDTO founder) {

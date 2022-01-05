@@ -1,5 +1,6 @@
 package br.com.gitcrib.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,11 @@ public class TaskService {
     }
 
     public List<TaskDTO> consultarTasks() {
-        return taskDao.findAll().stream().map(this::convertTaskToDTO).toList();
+        List<TaskDTO> listTaskDto = new ArrayList<>();
+        taskDao.findAll().forEach(taskItem ->{
+            listTaskDto.add(convertTaskToDTO(taskItem));
+        });
+        return listTaskDto;
     }
 
     public TaskDTO alterarTask(TaskDTO task) {

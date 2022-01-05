@@ -1,5 +1,6 @@
 package br.com.gitcrib.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,12 @@ public class ProjectService {
     }
 
     public List<ProjectDTO> consultarProjects() {
-        return projectDao.findAll().stream().map(this::convertProjectToDTO).toList();
+        List<ProjectDTO> listaProjectDto = new ArrayList<>();
+		
+		projectDao.findAll().forEach(founder -> {
+			listaProjectDto.add(convertProjectToDTO(founder));
+		});
+		return listaProjectDto;
     }
 
     public ProjectDTO alterarProject(ProjectDTO project) {

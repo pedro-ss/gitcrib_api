@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 public class Task {
     
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
