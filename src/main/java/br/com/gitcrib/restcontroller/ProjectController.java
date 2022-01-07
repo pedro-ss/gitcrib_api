@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,32 +27,33 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping("/save-project")
+    @PostMapping
     @ResponseBody
-    public ProjectDTO cadastrarProject(@Valid @RequestBody ProjectDTO project) {
-        return projectService.cadastrarProject(project);
+    public ResponseEntity<ProjectDTO> cadastrarProject(@Valid @RequestBody ProjectDTO project) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.cadastrarProject(project));
     }
 
-    @GetMapping("/find-project")
+    @GetMapping
     @ResponseBody
-    public Optional<ProjectDTO> consultarProject(@Valid @RequestBody ProjectDTO project) {
-        return projectService.consultarProject(project.getProjectId());
+    public ResponseEntity<Optional<ProjectDTO>> consultarProject(@Valid @RequestBody ProjectDTO project) {
+        return ResponseEntity.ok(projectService.consultarProject(project.getProjectId()));
     }
 
-    @GetMapping("/list-projects")
+    @GetMapping
     @ResponseBody
-    public List<ProjectDTO> consultarProjects() {
-        return projectService.consultarProjects();
+    public ResponseEntity<List<ProjectDTO>> consultarProjects() {
+        return ResponseEntity.ok().body(projectService.consultarProjects());
     }
 
-    @DeleteMapping("/delete-project")
-    public void deletarProject(@Valid @RequestBody ProjectDTO project) {
+    @DeleteMapping
+    public ResponseEntity<Void> deletarProject(@Valid @RequestBody ProjectDTO project) {
         projectService.deletarProject(project.getProjectId());
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/update-project")
+    @PutMapping
     @ResponseBody
-    public ProjectDTO alterarProject(@Valid @RequestBody ProjectDTO project) {
-        return projectService.alterarProject(project);
+    public ResponseEntity<ProjectDTO> alterarProject(@Valid @RequestBody ProjectDTO project) {
+        return ResponseEntity.ok(projectService.alterarProject(project));
     }
 }

@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,32 +27,33 @@ public class ContributorController {
     @Autowired
     private ContributorService contributorService;
 
-    @PostMapping("/save-contributor")
+    @PostMapping
     @ResponseBody
-    public ContributorDTO cadastrarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
-        return contributorService.cadastrarContributor(ContributorDTO);
+    public ResponseEntity<ContributorDTO> cadastrarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(contributorService.cadastrarContributor(ContributorDTO));
     }
 
-    @GetMapping("/find-contributor")
+    @GetMapping
     @ResponseBody
-    public Optional<ContributorDTO> consultarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
-        return contributorService.consultarContributor(ContributorDTO.getContributorId());
+    public ResponseEntity<Optional<ContributorDTO>> consultarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
+        return ResponseEntity.ok().body(contributorService.consultarContributor(ContributorDTO.getContributorId()));
     }
 
-    @GetMapping("/list-contributors")
+    @GetMapping
     @ResponseBody
-    public List<ContributorDTO> consultarContributors() {
-        return contributorService.consultarContributors();
+    public ResponseEntity<List<ContributorDTO>> consultarContributors() {
+        return ResponseEntity.ok().body(contributorService.consultarContributors());
     }
 
-    @DeleteMapping("/delete-contributor")
-    public void deletarContributorDTO(@Valid @RequestBody ContributorDTO contributorDTO) {
+    @DeleteMapping
+    public ResponseEntity<Void> deletarContributorDTO(@Valid @RequestBody ContributorDTO contributorDTO) {
         contributorService.deletarContributor(contributorDTO.getContributorId());
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/update-contributor")
+    @PutMapping
     @ResponseBody
-    public ContributorDTO alterarContributorDTO(@Valid @RequestBody ContributorDTO ContributorDTO) {
-        return contributorService.alterarContributor(ContributorDTO);
+    public ResponseEntity<ContributorDTO> alterarContributorDTO(@Valid @RequestBody ContributorDTO ContributorDTO) {
+        return ResponseEntity.ok().body(contributorService.alterarContributor(ContributorDTO));
     }
 }

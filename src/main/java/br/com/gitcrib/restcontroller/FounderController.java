@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,34 +27,36 @@ public class FounderController {
     @Autowired
     private FounderService founderService;
 
-    @PostMapping("/save-founder")
+    @PostMapping
     @ResponseBody
-    public FounderDTO cadastrarFounder(@Valid @RequestBody FounderDTO founder) {
-        return founderService.cadastrarFounder(founder);
+    public ResponseEntity<FounderDTO> cadastrarFounder(@Valid @RequestBody FounderDTO founder) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(founderService.cadastrarFounder(founder));
     }
 
-    @GetMapping("/find-founder")
+    @GetMapping
     @ResponseBody
-    public Optional<FounderDTO> consultarFounder( @Valid@RequestBody FounderDTO founder) {
-        return founderService.consultarFounder(founder.getFounderId());
+    public ResponseEntity<Optional<FounderDTO>> consultarFounder( @Valid@RequestBody FounderDTO founder) {
+        return ResponseEntity.ok(founderService.consultarFounder(founder.getFounderId()));
     }
 
-    @GetMapping("/list-founders")
+    @GetMapping
     @ResponseBody
-    public List<FounderDTO> consultarFounders() {
-        return founderService.consultarFounders();
+    public ResponseEntity<List<FounderDTO>> consultarFounders() {
+        return ResponseEntity.ok(founderService.consultarFounders());
     }
 
-    @DeleteMapping("/delete-founder")
+    @DeleteMapping
     @ResponseBody
-    public void deletarFounder(@Valid @RequestBody FounderDTO founder) {
+    public ResponseEntity<Void> deletarFounder(@Valid @RequestBody FounderDTO founder) {
         founderService.deletarFounder(founder.getFounderId());
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/update-founder")
+    @PutMapping
     @ResponseBody
-    public FounderDTO alterarFounder(@Valid @RequestBody FounderDTO founder) {
-        return founderService.alterarFounder(founder);
+    public ResponseEntity<Void> alterarFounder(@Valid @RequestBody FounderDTO founder) {
+        founderService.alterarFounder(founder);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 }

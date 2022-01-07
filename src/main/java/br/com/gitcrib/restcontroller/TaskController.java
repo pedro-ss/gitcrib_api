@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,33 +26,34 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/save-task")
+    @PostMapping
     @ResponseBody
-    public TaskDTO cadastrarTask(@Valid @RequestBody TaskDTO task) {
-        return taskService.cadastrarTask(task);
+    public ResponseEntity<TaskDTO> cadastrarTask(@Valid @RequestBody TaskDTO task) {
+        return ResponseEntity.ok(taskService.cadastrarTask(task));
     }
 
-    @GetMapping("/find-task")
+    @GetMapping
     @ResponseBody
-    public Optional<TaskDTO> consultarTask(@Valid @RequestBody TaskDTO task) {
-        return taskService.consultarTask(task.getTaskId());
+    public ResponseEntity<Optional<TaskDTO>> consultarTask(@Valid @RequestBody TaskDTO task) {
+        return ResponseEntity.ok(taskService.consultarTask(task.getTaskId()));
     }
 
-    @GetMapping("/list-tasks")
+    @GetMapping
     @ResponseBody
-    public List<TaskDTO> consultarTasks() {
-        return taskService.consultarTasks();
+    public ResponseEntity<List<TaskDTO>> consultarTasks() {
+        return ResponseEntity.ok(taskService.consultarTasks());
     }
 
-    @DeleteMapping("/delete-task")
+    @DeleteMapping
     @ResponseBody
-    public void deletarTask(@Valid @RequestBody TaskDTO task) {
+    public ResponseEntity<Void> deletarTask(@Valid @RequestBody TaskDTO task) {
         taskService.deletarTask(task.getTaskId());
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/update-task")
+    @PutMapping
     @ResponseBody
-    public TaskDTO alterarTask(@Valid @RequestBody TaskDTO task) {
-        return taskService.alterarTask(task);
+    public ResponseEntity<TaskDTO> alterarTask(@Valid @RequestBody TaskDTO task) {
+        return ResponseEntity.ok().body(taskService.alterarTask(task));
     }
 }
