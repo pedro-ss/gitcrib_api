@@ -10,20 +10,26 @@ import org.springframework.stereotype.Service;
 import br.com.gitcrib.dao.ContributorDao;
 import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.model.Contributor;
+import br.com.gitcrib.utils.PasswordEncoder;
 
 @Service
 public class ContributorService {
  
     @Autowired
     private ContributorDao contributorDao;
-
+    
     public ContributorDTO cadastrarContributor(ContributorDTO contributor) {
+    	
     	return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
 
     public Optional<ContributorDTO> consultarContributor(Integer contributorId) {
     	
         return contributorDao.findById(contributorId).stream().map(this::convertContributorToDTO).findFirst();
+    }
+    
+    public Optional<ContributorDTO> consultarContributor(String email, String senha) {
+        return contributorDao.findByUserNameAndPassword(email, PasswordEncoder.criptografarSenha(senha)).stream().map(this::convertContributorToDTO).findFirst();
     }
 
     public void deletarContributor(Integer contributorId) {
@@ -47,7 +53,6 @@ public class ContributorService {
     	ContributorDTO contributorDTO = new ContributorDTO();
     	contributorDTO.setContributorId(contributor.getId());
     	contributorDTO.setUserName(contributor.getUserName());
-    	contributorDTO.setPassword(contributor.getPassword());
     	contributorDTO.setName(contributor.getName());
     	contributorDTO.setAge(contributor.getAge());
     	contributorDTO.setPoints(contributor.getPoints());
@@ -59,7 +64,7 @@ public class ContributorService {
     	Contributor contributor = new Contributor();
 		contributor.setId(contributorDTO.getContributorId());
 		contributor.setUserName(contributorDTO.getUserName());
-		contributor.setPassword(contributorDTO.getPassword());
+		contributor.setPassword(PasswordEncoder.criptografarSenha(contributorDTO.getPassword()));
 		contributor.setName(contributorDTO.getName());
 		contributor.setAge(contributorDTO.getAge());
 		contributor.setPoints(contributorDTO.getPoints());

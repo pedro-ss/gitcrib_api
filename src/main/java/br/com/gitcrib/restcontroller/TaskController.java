@@ -26,32 +26,32 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping
+    @PostMapping("/save-task")
     @ResponseBody
     public ResponseEntity<TaskDTO> cadastrarTask(@Valid @RequestBody TaskDTO task) {
         return ResponseEntity.ok(taskService.cadastrarTask(task));
     }
 
-    @GetMapping
+    @GetMapping("/find-task")
     @ResponseBody
     public ResponseEntity<Optional<TaskDTO>> consultarTask(@Valid @RequestBody TaskDTO task) {
         return ResponseEntity.ok(taskService.consultarTask(task.getTaskId()));
     }
 
-    @GetMapping
+    @GetMapping("/list-tasks")
     @ResponseBody
     public ResponseEntity<List<TaskDTO>> consultarTasks() {
         return ResponseEntity.ok(taskService.consultarTasks());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete-task")
     @ResponseBody
     public ResponseEntity<Void> deletarTask(@Valid @RequestBody TaskDTO task) {
         taskService.deletarTask(task.getTaskId());
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/update-task")
     @ResponseBody
     public ResponseEntity<TaskDTO> alterarTask(@Valid @RequestBody TaskDTO task) {
         return ResponseEntity.ok().body(taskService.alterarTask(task));

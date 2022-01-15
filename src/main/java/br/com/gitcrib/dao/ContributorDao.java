@@ -12,4 +12,6 @@ public interface ContributorDao extends JpaRepository<Contributor,Integer>{
 
     Optional<Contributor> findById(Integer contributorId);
     
+    Optional<Contributor> findByUserNameAndPassword(String userName, String Password);
+    
 }

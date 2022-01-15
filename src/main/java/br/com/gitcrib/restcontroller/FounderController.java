@@ -27,32 +27,32 @@ public class FounderController {
     @Autowired
     private FounderService founderService;
 
-    @PostMapping
+    @PostMapping("/save-founder")
     @ResponseBody
     public ResponseEntity<FounderDTO> cadastrarFounder(@Valid @RequestBody FounderDTO founder) {
         return ResponseEntity.status(HttpStatus.CREATED).body(founderService.cadastrarFounder(founder));
     }
 
-    @GetMapping
+    @GetMapping("/find-contributor")
     @ResponseBody
     public ResponseEntity<Optional<FounderDTO>> consultarFounder( @Valid@RequestBody FounderDTO founder) {
         return ResponseEntity.ok(founderService.consultarFounder(founder.getFounderId()));
     }
 
-    @GetMapping
+    @GetMapping("/list-founders")
     @ResponseBody
     public ResponseEntity<List<FounderDTO>> consultarFounders() {
         return ResponseEntity.ok(founderService.consultarFounders());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete-founder")
     @ResponseBody
     public ResponseEntity<Void> deletarFounder(@Valid @RequestBody FounderDTO founder) {
         founderService.deletarFounder(founder.getFounderId());
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/update-founder")
     @ResponseBody
     public ResponseEntity<Void> alterarFounder(@Valid @RequestBody FounderDTO founder) {
         founderService.alterarFounder(founder);

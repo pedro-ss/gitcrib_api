@@ -17,7 +17,6 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -44,7 +43,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -66,6 +65,11 @@
    			<groupId>org.passay</groupId>
 	      	<artifactId>passay</artifactId>
 	      	<version>1.6.0</version>
+	  </dependency>
+	  <dependency>
+	      <groupId>de.mkammerer</groupId>
+	      <artifactId>argon2-jvm</artifactId>
+	      <version>2.7</version>
 	  </dependency>
 	</dependencies>
 

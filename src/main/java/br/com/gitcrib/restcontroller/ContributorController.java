@@ -27,31 +27,31 @@ public class ContributorController {
     @Autowired
     private ContributorService contributorService;
 
-    @PostMapping
+    @PostMapping("/save-contributor")
     @ResponseBody
     public ResponseEntity<ContributorDTO> cadastrarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(contributorService.cadastrarContributor(ContributorDTO));
     }
 
-    @GetMapping
+    @GetMapping("/find-contributor")
     @ResponseBody
     public ResponseEntity<Optional<ContributorDTO>> consultarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return ResponseEntity.ok().body(contributorService.consultarContributor(ContributorDTO.getContributorId()));
     }
 
-    @GetMapping
+    @GetMapping("/list-contributors")
     @ResponseBody
     public ResponseEntity<List<ContributorDTO>> consultarContributors() {
         return ResponseEntity.ok().body(contributorService.consultarContributors());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete-contributor")
     public ResponseEntity<Void> deletarContributorDTO(@Valid @RequestBody ContributorDTO contributorDTO) {
         contributorService.deletarContributor(contributorDTO.getContributorId());
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/update-contributor")
     @ResponseBody
     public ResponseEntity<ContributorDTO> alterarContributorDTO(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return ResponseEntity.ok().body(contributorService.alterarContributor(ContributorDTO));

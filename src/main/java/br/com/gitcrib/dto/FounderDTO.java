@@ -6,6 +6,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -20,7 +21,7 @@ public class FounderDTO {
 	
 	@NotBlank
     @NotEmpty
-    @Max(255)
+    @Size(max=255, min=2)
     private String userName;
 	
 	@NotBlank
@@ -30,7 +31,7 @@ public class FounderDTO {
 	
 	@NotBlank
     @NotEmpty
-    @Max(255)
+    @Size(max=255, min=2)
     private String name;
      
     @Nullable

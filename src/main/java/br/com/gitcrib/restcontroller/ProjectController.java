@@ -27,31 +27,31 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping
+    @PostMapping("/save-project")
     @ResponseBody
     public ResponseEntity<ProjectDTO> cadastrarProject(@Valid @RequestBody ProjectDTO project) {
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.cadastrarProject(project));
     }
 
-    @GetMapping
+    @GetMapping("/find-project")
     @ResponseBody
     public ResponseEntity<Optional<ProjectDTO>> consultarProject(@Valid @RequestBody ProjectDTO project) {
         return ResponseEntity.ok(projectService.consultarProject(project.getProjectId()));
     }
 
-    @GetMapping
+    @GetMapping("/list-projects")
     @ResponseBody
     public ResponseEntity<List<ProjectDTO>> consultarProjects() {
         return ResponseEntity.ok().body(projectService.consultarProjects());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete-project")
     public ResponseEntity<Void> deletarProject(@Valid @RequestBody ProjectDTO project) {
         projectService.deletarProject(project.getProjectId());
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/update-project")
     @ResponseBody
     public ResponseEntity<ProjectDTO> alterarProject(@Valid @RequestBody ProjectDTO project) {
         return ResponseEntity.ok(projectService.alterarProject(project));
