@@ -53,7 +53,6 @@ public class FounderService {
     	FounderDTO founderDTO = new FounderDTO();
     	founderDTO.setFounderId(founder.getId());
     	founderDTO.setUserName(founder.getUserName());
-    	founderDTO.setPassword(founder.getPassword());
     	founderDTO.setName(founder.getName());
     	founderDTO.setPoints(founder.getPoints());
     	founderDTO.setSince(founder.getSince());

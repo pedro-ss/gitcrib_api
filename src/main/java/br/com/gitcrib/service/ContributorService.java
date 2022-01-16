@@ -25,11 +25,14 @@ public class ContributorService {
 
     public Optional<ContributorDTO> consultarContributor(Integer contributorId) {
     	
-        return contributorDao.findById(contributorId).stream().map(this::convertContributorToDTO).findFirst();
+    	return contributorDao.findById(contributorId).stream().map(this::convertContributorToDTO).findFirst();
     }
     
     public Optional<ContributorDTO> consultarContributor(String email, String senha) {
-        return contributorDao.findByUserNameAndPassword(email, PasswordEncoder.criptografarSenha(senha)).stream().map(this::convertContributorToDTO).findFirst();
+    	
+    	String usuario = email;
+    	String criptografada = PasswordEncoder.criptografarSenha(senha);
+        return contributorDao.findByUserNameAndPassword(email, criptografada).stream().map(this::convertContributorToDTO).findFirst();
     }
 
     public void deletarContributor(Integer contributorId) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,4 +57,12 @@ public class ContributorController {
     public ResponseEntity<ContributorDTO> alterarContributorDTO(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return ResponseEntity.ok().body(contributorService.alterarContributor(ContributorDTO));
     }
+    
+    @PostMapping("/login-contributor")
+    @ResponseBody
+    public ResponseEntity<Optional<ContributorDTO>> login(@RequestBody String userName, @RequestBody String password) {
+        return ResponseEntity.ok().body(contributorService.consultarContributor(userName, password));
+    }
+    
+    
 }
