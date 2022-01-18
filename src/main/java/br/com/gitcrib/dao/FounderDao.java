@@ -9,6 +9,6 @@ import br.com.gitcrib.model.Founder;
 
 public interface FounderDao extends JpaRepository<Founder, Integer>{
 	
-	Optional<Founder> findByUserNameAndPassword(String userName, String password);
+	Optional<Founder> findByUserName(String userName);
     
 }

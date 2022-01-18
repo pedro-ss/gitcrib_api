@@ -21,6 +21,7 @@ public class FounderService {
     private FounderDao founderDao;
     
     public FounderDTO cadastrarFounder(FounderDTO founder) {
+    	founder.setPassword(PasswordEncoder.criptografarSenha(founder.getPassword()));
         return convertFounderToDTO(founderDao.save(convertDTOToFounder(founder)));
     }
 
@@ -28,10 +29,17 @@ public class FounderService {
         return  founderDao.findById(founderId).stream().map(this::convertFounderToDTO).findFirst();
     }
     
-    public Optional<FounderDTO> consultarFounder(String email, String senha) {
-        return  founderDao.findByUserNameAndPassword(email, PasswordEncoder.criptografarSenha(senha)).stream().map(this::convertFounderToDTO).findFirst();
+    public Optional<FounderDTO> consultarFounder(String email, String senha) throws Exception {
+    	
+    	String usuario = email;
+    	Optional<FounderDTO> founder = founderDao.findByUserName(email).stream().map(this::convertFounderToDTO).findFirst();
+        if(PasswordEncoder.verificacaoSenha(founder.get().getPassword(), senha))
+        {
+        	return founder;
+        } else {
+        	throw new Exception("Usuário não encontrado");
+        }
     }
-
     public void deletarFounder(Integer founderId) {
         founderDao.deleteById(founderId);
     }
@@ -53,6 +61,7 @@ public class FounderService {
     	FounderDTO founderDTO = new FounderDTO();
     	founderDTO.setFounderId(founder.getId());
     	founderDTO.setUserName(founder.getUserName());
+    	founderDTO.setPassword(founder.getPassword());
     	founderDTO.setName(founder.getName());
     	founderDTO.setPoints(founder.getPoints());
     	founderDTO.setSince(founder.getSince());
@@ -63,7 +72,7 @@ public class FounderService {
     	Founder founder = new Founder();
     	founder.setId(founderDTO.getFounderId());
     	founder.setUserName(founderDTO.getUserName());
-    	founder.setPassword(PasswordEncoder.criptografarSenha(founderDTO.getPassword()));
+    	founder.setPassword(founderDTO.getPassword());
     	founder.setName(founderDTO.getName());
     	founder.setPoints(founderDTO.getPoints());
     	founder.setSince(founderDTO.getSince());

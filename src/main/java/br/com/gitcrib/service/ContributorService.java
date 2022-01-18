@@ -11,6 +11,7 @@ import br.com.gitcrib.dao.ContributorDao;
 import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.utils.PasswordEncoder;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
 public class ContributorService {
@@ -20,6 +21,7 @@ public class ContributorService {
     
     public ContributorDTO cadastrarContributor(ContributorDTO contributor) {
     	
+    	contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
     	return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
 
@@ -28,11 +30,16 @@ public class ContributorService {
     	return contributorDao.findById(contributorId).stream().map(this::convertContributorToDTO).findFirst();
     }
     
-    public Optional<ContributorDTO> consultarContributor(String email, String senha) {
+    public Optional<ContributorDTO> consultarContributor(String email, String senha) throws Exception {
     	
     	String usuario = email;
-    	String criptografada = PasswordEncoder.criptografarSenha(senha);
-        return contributorDao.findByUserNameAndPassword(email, criptografada).stream().map(this::convertContributorToDTO).findFirst();
+    	Optional<ContributorDTO> contributor = contributorDao.findByUserName(email).stream().map(this::convertContributorToDTO).findFirst();
+        if(PasswordEncoder.verificacaoSenha(contributor.get().getPassword(), senha))
+        {
+        	return contributor;
+        } else {
+        	throw new Exception("Usuário não encontrado");
+        }
     }
 
     public void deletarContributor(Integer contributorId) {
@@ -56,6 +63,7 @@ public class ContributorService {
     	ContributorDTO contributorDTO = new ContributorDTO();
     	contributorDTO.setContributorId(contributor.getId());
     	contributorDTO.setUserName(contributor.getUserName());
+    	contributorDTO.setPassword(contributor.getPassword());
     	contributorDTO.setName(contributor.getName());
     	contributorDTO.setAge(contributor.getAge());
     	contributorDTO.setPoints(contributor.getPoints());
@@ -67,7 +75,7 @@ public class ContributorService {
     	Contributor contributor = new Contributor();
 		contributor.setId(contributorDTO.getContributorId());
 		contributor.setUserName(contributorDTO.getUserName());
-		contributor.setPassword(PasswordEncoder.criptografarSenha(contributorDTO.getPassword()));
+		contributor.setPassword(contributorDTO.getPassword());
 		contributor.setName(contributorDTO.getName());
 		contributor.setAge(contributorDTO.getAge());
 		contributor.setPoints(contributorDTO.getPoints());

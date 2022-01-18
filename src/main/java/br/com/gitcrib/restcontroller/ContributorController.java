@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gitcrib.dto.ContributorDTO;
+import br.com.gitcrib.dto.LoginUsuarioDTO;
 import br.com.gitcrib.service.ContributorService;
 
 @RestController
@@ -60,9 +60,12 @@ public class ContributorController {
     
     @PostMapping("/login-contributor")
     @ResponseBody
-    public ResponseEntity<Optional<ContributorDTO>> login(@RequestBody String userName, @RequestBody String password) {
-        return ResponseEntity.ok().body(contributorService.consultarContributor(userName, password));
+    public ResponseEntity<Optional<ContributorDTO>> signin(@RequestBody LoginUsuarioDTO loginUsuarioDTO) throws Exception {
+        try {
+			return ResponseEntity.ok().body(contributorService.consultarContributor(loginUsuarioDTO.getUserName(), loginUsuarioDTO.getPassword()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
     }
-    
-    
 }
