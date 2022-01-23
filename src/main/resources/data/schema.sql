@@ -1,4 +1,4 @@
-CREATE SCHEMA gitcrib AUTHORIZATION gitcrib;
+CREATE SCHEMA gitcrib;
 
 CREATE TABLE IF NOT EXISTS contributor (
 	id serial4 NOT NULL,

@@ -6,8 +6,8 @@ RUN mvn verify clean --fail-never
 ADD . /build/
 RUN mvn clean package 
 
-EXPOSE 9001
+EXPOSE 8080
   
-COPY --from=build /build/target/gitcrib_api.jar /app/app.jar
+COPY /target/gitcrib_api-0.0.1-SNAPSHOT.jar /app/app.jar
 WORKDIR /app
 ENTRYPOINT ["java","-jar","app.jar"]

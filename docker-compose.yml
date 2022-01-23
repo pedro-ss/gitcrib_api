@@ -1,0 +1,14 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:12.7
+    restart: always
+    container_name: gitcrib_db
+    environment:
+      - POSTGRES_USER=gitcrib
+      - POSTGRES_PASSWORD=gitcrib
+      - POSTGRES_DB=gitcrib
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/resources/data/schema.sql:/docker-entrypoint-initdb.d/schema.sql
