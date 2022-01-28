@@ -41,4 +41,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "PROJECT", referencedColumnName = "ID")
     private Project project;
+    
+    public Task(Integer id) {
+    	this.setId(id);
+    }
 }

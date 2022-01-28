@@ -35,7 +35,7 @@ public class ProjectController {
 
     @GetMapping("/find-project")
     @ResponseBody
-    public ResponseEntity<Optional<ProjectDTO>> consultarProject(@Valid @RequestBody ProjectDTO project) {
+    public ResponseEntity<Optional<ProjectDTO>> consultarProject(@RequestBody ProjectDTO project) {
         return ResponseEntity.ok(projectService.consultarProject(project.getProjectId()));
     }
 
@@ -46,7 +46,7 @@ public class ProjectController {
     }
 
     @DeleteMapping("/delete-project")
-    public ResponseEntity<Void> deletarProject(@Valid @RequestBody ProjectDTO project) {
+    public ResponseEntity<Void> deletarProject(@RequestBody ProjectDTO project) {
         projectService.deletarProject(project.getProjectId());
         return ResponseEntity.ok().build();
     }

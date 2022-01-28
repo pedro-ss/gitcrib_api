@@ -44,4 +44,8 @@ public class Contributor {
 
     @Column(name = "AGE")
     private Integer age;
+    
+    public Contributor(Integer id) {
+    	this.setId(id);
+    }
 }

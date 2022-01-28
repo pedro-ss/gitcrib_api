@@ -20,7 +20,6 @@ public class ContributorService {
     private ContributorDao contributorDao;
     
     public ContributorDTO cadastrarContributor(ContributorDTO contributor) {
-    	
     	contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
     	return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
@@ -34,12 +33,16 @@ public class ContributorService {
     	
     	String usuario = email;
     	Optional<ContributorDTO> contributor = contributorDao.findByUserName(email).stream().map(this::convertContributorToDTO).findFirst();
-        if(PasswordEncoder.verificacaoSenha(contributor.get().getPassword(), senha))
-        {
-        	return contributor;
-        } else {
+    	if(contributor != null) {
+    		if(PasswordEncoder.verificacaoSenha(contributor.get().getPassword(), senha))
+            {
+            	return contributor;
+            } else {
+            	throw new Exception("Usuário não encontrado");
+            }
+    	} else {
         	throw new Exception("Usuário não encontrado");
-        }
+    	}
     }
 
     public void deletarContributor(Integer contributorId) {
@@ -56,6 +59,7 @@ public class ContributorService {
 	}
 
     public ContributorDTO alterarContributor(ContributorDTO contributor) {
+    	contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
         return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
     

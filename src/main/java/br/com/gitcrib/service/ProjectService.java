@@ -61,6 +61,10 @@ public class ProjectService {
     	Project project = new Project();
     	project.setId(projectDTO.getProjectId());
     	project.setDescription(projectDTO.getDescription());
+    	if(projectDTO.getFounderId() != null) {
+    		Founder founder = new Founder();
+    		project.setFounder(founder);
+    	}
     	project.setFounder(projectDTO.getFounder());
     	project.setProjectStatus(projectDTO.getProjectStatus());
     	project.setTasks(projectDTO.getTasks());

@@ -36,7 +36,7 @@ public class ContributorController {
 
     @GetMapping("/find-contributor")
     @ResponseBody
-    public ResponseEntity<Optional<ContributorDTO>> consultarContributor(@Valid @RequestBody ContributorDTO ContributorDTO) {
+    public ResponseEntity<Optional<ContributorDTO>> consultarContributor(@RequestBody ContributorDTO ContributorDTO) {
         return ResponseEntity.ok().body(contributorService.consultarContributor(ContributorDTO.getContributorId()));
     }
 
@@ -47,7 +47,7 @@ public class ContributorController {
     }
 
     @DeleteMapping("/delete-contributor")
-    public ResponseEntity<Void> deletarContributorDTO(@Valid @RequestBody ContributorDTO contributorDTO) {
+    public ResponseEntity<Void> deletarContributorDTO(@RequestBody ContributorDTO contributorDTO) {
         contributorService.deletarContributor(contributorDTO.getContributorId());
         return ResponseEntity.ok().build();
     }

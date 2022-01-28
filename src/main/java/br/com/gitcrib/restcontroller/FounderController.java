@@ -35,9 +35,9 @@ public class FounderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(founderService.cadastrarFounder(founder));
     }
 
-    @GetMapping("/find-contributor")
+    @GetMapping("/find-founder")
     @ResponseBody
-    public ResponseEntity<Optional<FounderDTO>> consultarFounder( @Valid@RequestBody FounderDTO founder) {
+    public ResponseEntity<Optional<FounderDTO>> consultarFounder(@RequestBody FounderDTO founder) {
         return ResponseEntity.ok(founderService.consultarFounder(founder.getFounderId()));
     }
 
@@ -49,16 +49,15 @@ public class FounderController {
 
     @DeleteMapping("/delete-founder")
     @ResponseBody
-    public ResponseEntity<Void> deletarFounder(@Valid @RequestBody FounderDTO founder) {
+    public ResponseEntity<Void> deletarFounder(@RequestBody FounderDTO founder) {
         founderService.deletarFounder(founder.getFounderId());
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/update-founder")
     @ResponseBody
-    public ResponseEntity<Void> alterarFounder(@Valid @RequestBody FounderDTO founder) {
-        founderService.alterarFounder(founder);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    public ResponseEntity<FounderDTO> alterarFounder(@Valid @RequestBody FounderDTO founder) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(founderService.alterarFounder(founder));
     }
     
     @PostMapping("/login-founder")

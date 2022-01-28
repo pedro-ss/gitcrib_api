@@ -33,12 +33,17 @@ public class FounderService {
     	
     	String usuario = email;
     	Optional<FounderDTO> founder = founderDao.findByUserName(email).stream().map(this::convertFounderToDTO).findFirst();
-        if(PasswordEncoder.verificacaoSenha(founder.get().getPassword(), senha))
-        {
-        	return founder;
-        } else {
+    	if(founder != null) {
+    		if(PasswordEncoder.verificacaoSenha(founder.get().getPassword(), senha))
+            {
+            	return founder;
+            } else {
+            	throw new Exception("Usuário não encontrado");
+            }
+    	} else {
         	throw new Exception("Usuário não encontrado");
         }
+        
     }
     public void deletarFounder(Integer founderId) {
         founderDao.deleteById(founderId);
@@ -54,6 +59,7 @@ public class FounderService {
     }
 
     public FounderDTO alterarFounder(FounderDTO founder) {
+    	founder.setPassword(PasswordEncoder.criptografarSenha(founder.getPassword()));
         return convertFounderToDTO(founderDao.save(convertDTOToFounder(founder)));
     }
     
