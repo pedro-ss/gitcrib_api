@@ -2,7 +2,7 @@ package br.com.gitcrib.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Max;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,9 +12,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import br.com.gitcrib.utils.annotation.ValidPassword;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ContributorDTO {
 	@NotNull
     private Integer contributorId;
@@ -32,8 +38,9 @@ public class ContributorDTO {
     @NotEmpty
     @NotBlank
     @Size(max=255, min=2)
-    private String name;
-    
+    @Email
+    private String email;
+
     @Nullable
     private Long points;
     

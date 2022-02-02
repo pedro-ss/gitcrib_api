@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.dto.FounderDTO;
-import br.com.gitcrib.dto.LoginUsuarioDTO;
 import br.com.gitcrib.service.FounderService;
 
 @RestController
@@ -59,16 +57,4 @@ public class FounderController {
     public ResponseEntity<FounderDTO> alterarFounder(@Valid @RequestBody FounderDTO founder) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(founderService.alterarFounder(founder));
     }
-    
-    @PostMapping("/login-founder")
-    @ResponseBody
-    public ResponseEntity<Optional<FounderDTO>> signin(@RequestBody LoginUsuarioDTO loginUsuarioDTO) throws Exception {
-        try {
-			return ResponseEntity.ok().body(founderService.consultarFounder(loginUsuarioDTO.getUserName(), loginUsuarioDTO.getPassword()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-    }
-
 }

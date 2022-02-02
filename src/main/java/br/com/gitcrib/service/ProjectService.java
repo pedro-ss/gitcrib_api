@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gitcrib.dao.ProjectDao;
-import br.com.gitcrib.dto.FounderDTO;
 import br.com.gitcrib.dto.ProjectDTO;
 import br.com.gitcrib.model.Founder;
 import br.com.gitcrib.model.Project;
@@ -49,7 +48,7 @@ public class ProjectService {
     	projectDTO.setProjectId(project.getId());
     	projectDTO.setDescription(project.getDescription());
     	if(project.getFounder() != null) {
-    		projectDTO.setFounder(project.getFounder());
+    		//projectDTO.setFounder(project.getFounder()); user repository
         	projectDTO.setFounderId(project.getFounder().getId());
     	}
     	projectDTO.setProjectStatus(project.getProjectStatus());
@@ -65,7 +64,7 @@ public class ProjectService {
     		Founder founder = new Founder();
     		project.setFounder(founder);
     	}
-    	project.setFounder(projectDTO.getFounder());
+    	//project.setFounder(projectDTO.getFounder());  user repository
     	project.setProjectStatus(projectDTO.getProjectStatus());
     	project.setTasks(projectDTO.getTasks());
     	return project;

@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gitcrib.dao.FounderDao;
-import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.dto.FounderDTO;
-import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.model.Founder;
 import br.com.gitcrib.utils.PasswordEncoder;
 
@@ -68,7 +66,7 @@ public class FounderService {
     	founderDTO.setFounderId(founder.getId());
     	founderDTO.setUserName(founder.getUserName());
     	founderDTO.setPassword(founder.getPassword());
-    	founderDTO.setName(founder.getName());
+    	founderDTO.setEmail(founder.getEmail());
     	founderDTO.setPoints(founder.getPoints());
     	founderDTO.setSince(founder.getSince());
     	return founderDTO;
@@ -79,7 +77,7 @@ public class FounderService {
     	founder.setId(founderDTO.getFounderId());
     	founder.setUserName(founderDTO.getUserName());
     	founder.setPassword(founderDTO.getPassword());
-    	founder.setName(founderDTO.getName());
+    	founder.setEmail(founderDTO.getEmail());
     	founder.setPoints(founderDTO.getPoints());
     	founder.setSince(founderDTO.getSince());
     	return founder;

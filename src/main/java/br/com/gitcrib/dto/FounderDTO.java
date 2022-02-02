@@ -2,7 +2,6 @@ package br.com.gitcrib.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -32,7 +31,7 @@ public class FounderDTO {
 	@NotBlank
     @NotEmpty
     @Size(max=255, min=2)
-    private String name;
+    private String email;
      
     @Nullable
     private Long points;

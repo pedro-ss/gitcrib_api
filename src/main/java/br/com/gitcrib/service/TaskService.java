@@ -48,7 +48,7 @@ public class TaskService {
     	taskDTO.setTitle(task.getTitle());
     	taskDTO.setDescription(task.getDescription());
     	if(task.getProject() != null) {
-    		taskDTO.setProject(task.getProject());
+    		// taskDTO.setProject(task.getProject());  user repository
     		taskDTO.setProjectId(task.getProject().getId());
     	}
     	taskDTO.setStatus(task.getStatus());
@@ -60,7 +60,7 @@ public class TaskService {
     	task.setId(taskDTO.getTaskId());
     	task.setTitle(taskDTO.getTitle());
     	task.setDescription(taskDTO.getDescription());
-    	task.setProject(taskDTO.getProject());
+    	// task.setProject(taskDTO.getProject());  user repository
     	task.setStatus(taskDTO.getStatus());
 		return task;
     }

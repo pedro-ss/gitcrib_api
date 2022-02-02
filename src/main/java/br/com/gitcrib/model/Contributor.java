@@ -33,8 +33,8 @@ public class Contributor {
     @Column(name = "PASSWORD")
     private String password;
     
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "EMAIL")
+    private String email;
     
     @Column(name = "POINTS")
     private Long points;

@@ -34,7 +34,7 @@ public class Founder {
     private String password;
     
     @Column(name = "NAME")
-    private String name;
+    private String email;
     
     @Column(name = "POINTS")
     private Long points;

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gitcrib.dto.ContributorDTO;
-import br.com.gitcrib.dto.LoginUsuarioDTO;
 import br.com.gitcrib.service.ContributorService;
 
 @RestController
@@ -57,15 +56,5 @@ public class ContributorController {
     public ResponseEntity<ContributorDTO> alterarContributorDTO(@Valid @RequestBody ContributorDTO ContributorDTO) {
         return ResponseEntity.ok().body(contributorService.alterarContributor(ContributorDTO));
     }
-    
-    @PostMapping("/login-contributor")
-    @ResponseBody
-    public ResponseEntity<Optional<ContributorDTO>> signin(@RequestBody LoginUsuarioDTO loginUsuarioDTO) throws Exception {
-        try {
-			return ResponseEntity.ok().body(contributorService.consultarContributor(loginUsuarioDTO.getUserName(), loginUsuarioDTO.getPassword()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-    }
+
 }

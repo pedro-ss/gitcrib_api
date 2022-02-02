@@ -11,7 +11,6 @@ import br.com.gitcrib.dao.ContributorDao;
 import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.utils.PasswordEncoder;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
 public class ContributorService {
@@ -64,26 +63,26 @@ public class ContributorService {
     }
     
     private ContributorDTO convertContributorToDTO(Contributor contributor) {
-    	ContributorDTO contributorDTO = new ContributorDTO();
-    	contributorDTO.setContributorId(contributor.getId());
-    	contributorDTO.setUserName(contributor.getUserName());
-    	contributorDTO.setPassword(contributor.getPassword());
-    	contributorDTO.setName(contributor.getName());
-    	contributorDTO.setAge(contributor.getAge());
-    	contributorDTO.setPoints(contributor.getPoints());
-    	contributorDTO.setSince(contributor.getSince());
-    	return contributorDTO;
+    	return ContributorDTO.builder()
+			.contributorId(contributor.getId())
+			.userName(contributor.getUserName())
+			.password(contributor.getPassword())
+			.email(contributor.getEmail())
+			.age(contributor.getAge())
+			.points(contributor.getPoints())
+			.since(contributor.getSince())
+			.build();
     }
     
     private Contributor convertDtoToContributor(ContributorDTO contributorDTO) {
-    	Contributor contributor = new Contributor();
-		contributor.setId(contributorDTO.getContributorId());
-		contributor.setUserName(contributorDTO.getUserName());
-		contributor.setPassword(contributorDTO.getPassword());
-		contributor.setName(contributorDTO.getName());
-		contributor.setAge(contributorDTO.getAge());
-		contributor.setPoints(contributorDTO.getPoints());
-		contributor.setSince(contributorDTO.getSince());
-		return contributor;
+		return Contributor.builder()
+			.id(contributorDTO.getContributorId())
+			.userName(contributorDTO.getUserName())
+			.password(contributorDTO.getPassword())
+			.email(contributorDTO.getEmail())
+			.age(contributorDTO.getAge())
+			.points(contributorDTO.getPoints())
+			.since(contributorDTO.getSince())
+			.build();
     }
 }
