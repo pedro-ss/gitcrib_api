@@ -11,7 +11,9 @@ import br.com.gitcrib.dao.ContributorDao;
 import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.utils.PasswordEncoder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ContributorService {
  
@@ -40,8 +42,9 @@ public class ContributorService {
             	throw new Exception("Usuário não encontrado");
             }
     	} else {
-        	throw new Exception("Usuário não encontrado");
+        	log.info("Usuário não encontrado");
     	}
+		return Optional.empty();
     }
 
     public void deletarContributor(Integer contributorId) {
