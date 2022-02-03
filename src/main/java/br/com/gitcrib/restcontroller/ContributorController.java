@@ -22,6 +22,7 @@ import br.com.gitcrib.service.ContributorService;
 
 @RestController
 @RequestMapping("/contributor")
+@CrossOrigin(origins = "*")
 public class ContributorController {
     
     @Autowired

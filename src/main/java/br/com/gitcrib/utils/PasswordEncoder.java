@@ -2,7 +2,9 @@ package br.com.gitcrib.utils;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PasswordEncoder {
 	
 	public static String criptografarSenha(String senha) {
@@ -20,6 +22,6 @@ public class PasswordEncoder {
 	public static boolean verificacaoSenha(String hash, String senha) {
  		Argon2 argon2 = Argon2Factory.create(
 				Argon2Factory.Argon2Types.ARGON2i, 32, 64);
-		return argon2.verify(hash, senha.toCharArray());
+		return argon2.verify(hash, senha);
 	} 
 }

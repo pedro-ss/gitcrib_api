@@ -21,7 +21,7 @@ public class FounderService {
     private FounderDao founderDao;
     
     public FounderDTO cadastrarFounder(FounderDTO founder) {
-    	founder.setPassword(PasswordEncoder.criptografarSenha(founder.getPassword()));
+    	//founder.setPassword(PasswordEncoder.criptografarSenha(founder.getPassword()));
         return convertFounderToDTO(founderDao.save(convertDTOToFounder(founder)));
     }
 
@@ -32,8 +32,9 @@ public class FounderService {
     public Optional<FounderDTO> consultarFounder(String email, String senha) throws Exception {
     	
     	Optional<FounderDTO> founder = founderDao.findByUserName(email).stream().map(this::convertFounderToDTO).findFirst();
+		log.info("Resultado: ", founder);
     	if(founder.isPresent()) {
-    		if(PasswordEncoder.verificacaoSenha(founder.get().getPassword(), senha))
+    		if(founder.get().getPassword().equals(senha))
             {
             	return founder;
             } else {

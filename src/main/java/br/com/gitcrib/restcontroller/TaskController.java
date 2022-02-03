@@ -24,6 +24,7 @@ import br.com.gitcrib.service.TaskService;
 
 @RestController
 @RequestMapping("/task")
+@CrossOrigin(origins = "*")
 public class TaskController {
 
     @Autowired

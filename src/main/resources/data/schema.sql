@@ -52,3 +52,15 @@ create table if not exists ACTIVITY (
     CONSTRAINT task_id 
     FOREIGN KEY (task_id) REFERENCES task(id)
 );
+
+
+INSERT INTO FOUNDER (NAME,PASSWORD,POINTS,SINCE,USER_NAME) VALUES ('Godofredo','0Vu30usQx9QGYrMb8Al19XwHltiCHw',0,'2021-01-01','severino');
+INSERT INTO FOUNDER (NAME,PASSWORD,POINTS,SINCE,USER_NAME) VALUES ('Marcos','0Vu30usQx9QGYrMb8Al19XwHltiCHw',0,'2021-02-09','Bill Pullman');
+
+INSERT INTO PROJECT (DESCRIPTION,PROJECT_STATUS,FOUNDER) VALUES ('Projeto em React para faculdade','em andamento',1);
+INSERT INTO PROJECT (DESCRIPTION,PROJECT_STATUS,FOUNDER) VALUES ('Projeto em Python para automação','em andamento',2);
+
+
+INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT,TASK) VALUES('implementar função CREATE','em andamento','create func em python', 1,1);
+INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT,TASK) VALUES('implementar função UPDATE','disponível','create func em python', 1,1);
+INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT,TASK) VALUES('implementar função DELETE','disponível','create del func em python', 1,1);

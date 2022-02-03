@@ -21,26 +21,24 @@ public class ContributorService {
     private ContributorDao contributorDao;
     
     public ContributorDTO cadastrarContributor(ContributorDTO contributor) {
-    	contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
+    	//contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
     	return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
 
     public Optional<ContributorDTO> consultarContributor(Integer contributorId) {
-    	
     	return contributorDao.findById(contributorId).stream().map(this::convertContributorToDTO).findFirst();
     }
     
     public Optional<ContributorDTO> consultarContributor(String email, String senha) throws Exception {
     	
-    	Optional<Contributor> contributorFound = contributorDao.findByEmail(email);
-		
+    	Optional<Contributor> contributorFound = contributorDao.findByEmail(email.trim());
 		if(contributorFound.isPresent()) {
-    		if(PasswordEncoder.verificacaoSenha(contributorFound.get().getPassword(), senha))
-            {
-            	return Optional.of(convertContributorToDTO(contributorFound.get()));
-            } else {
-            	throw new Exception("Usuário não encontrado");
-            }
+			 if(contributorFound.get().getPassword().equals(senha))
+             {
+             	return Optional.of(convertContributorToDTO(contributorFound.get()));
+             } else {
+             	throw new Exception("Usuário não encontrado");
+             }
     	} else {
         	log.info("Usuário não encontrado");
     	}

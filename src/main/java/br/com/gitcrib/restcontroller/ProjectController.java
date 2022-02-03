@@ -23,6 +23,7 @@ import br.com.gitcrib.service.ProjectService;
 
 @RestControllerAdvice
 @RequestMapping("/project")
+@CrossOrigin(origins = "*")
 public class ProjectController {
     
     @Autowired
