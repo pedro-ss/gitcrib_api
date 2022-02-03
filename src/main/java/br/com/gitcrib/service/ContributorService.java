@@ -30,12 +30,12 @@ public class ContributorService {
     
     public Optional<ContributorDTO> consultarContributor(String email, String senha) throws Exception {
     	
-    	String usuario = email;
-    	Optional<ContributorDTO> contributor = contributorDao.findByUserName(email).stream().map(this::convertContributorToDTO).findFirst();
-    	if(contributor != null) {
-    		if(PasswordEncoder.verificacaoSenha(contributor.get().getPassword(), senha))
+    	Optional<Contributor> contributorFound = contributorDao.findByEmail(email);
+		
+		if(contributorFound.isPresent()) {
+    		if(PasswordEncoder.verificacaoSenha(contributorFound.get().getPassword(), senha))
             {
-            	return contributor;
+            	return Optional.of(convertContributorToDTO(contributorFound.get()));
             } else {
             	throw new Exception("Usuário não encontrado");
             }
