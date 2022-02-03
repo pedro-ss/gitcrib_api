@@ -11,7 +11,9 @@ import br.com.gitcrib.dao.ContributorDao;
 import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.utils.PasswordEncoder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ContributorService {
  
@@ -19,29 +21,28 @@ public class ContributorService {
     private ContributorDao contributorDao;
     
     public ContributorDTO cadastrarContributor(ContributorDTO contributor) {
-    	contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
+    	//contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
     	return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
 
     public Optional<ContributorDTO> consultarContributor(Integer contributorId) {
-    	
     	return contributorDao.findById(contributorId).stream().map(this::convertContributorToDTO).findFirst();
     }
     
     public Optional<ContributorDTO> consultarContributor(String email, String senha) throws Exception {
     	
-    	String usuario = email;
-    	Optional<ContributorDTO> contributor = contributorDao.findByUserName(email).stream().map(this::convertContributorToDTO).findFirst();
-    	if(contributor != null) {
-    		if(PasswordEncoder.verificacaoSenha(contributor.get().getPassword(), senha))
-            {
-            	return contributor;
-            } else {
-            	throw new Exception("Usuário não encontrado");
-            }
+    	Optional<Contributor> contributorFound = contributorDao.findByEmail(email.trim());
+		if(contributorFound.isPresent()) {
+			 if(contributorFound.get().getPassword().equals(senha))
+             {
+             	return Optional.of(convertContributorToDTO(contributorFound.get()));
+             } else {
+             	throw new Exception("Usuário não encontrado");
+             }
     	} else {
-        	throw new Exception("Usuário não encontrado");
+        	log.info("Usuário não encontrado");
     	}
+		return Optional.empty();
     }
 
     public void deletarContributor(Integer contributorId) {

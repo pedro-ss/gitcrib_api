@@ -30,4 +30,26 @@ public class UserSystemDTOBuilder {
         .since(founderDTO.getSince())
         .build());
     }
+
+    public FounderDTO dtoFounderBuilder(UserSystemDTO userSystemDTO) {
+        return FounderDTO.builder()
+        .founderId(userSystemDTO.getId())
+        .userName(userSystemDTO.getUserName())
+        .email(userSystemDTO.getEmail())
+        .password(userSystemDTO.getPassword())
+        .points(userSystemDTO.getPoints())
+        .since(userSystemDTO.getSince())
+        .build();
+    }
+
+    public ContributorDTO dtoContributorBuilder(UserSystemDTO userSystemDTO) {
+        return ContributorDTO.builder()
+        .contributorId(userSystemDTO.getId())
+        .userName(userSystemDTO.getUserName())
+        .email(userSystemDTO.getEmail())
+        .password(userSystemDTO.getPassword())
+        .points(userSystemDTO.getPoints())
+        .since(userSystemDTO.getSince())
+        .build();
+    }
 }

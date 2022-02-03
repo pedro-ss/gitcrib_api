@@ -24,4 +24,6 @@ public class UserSystemDTO {
     private Long points;
     
     private LocalDate since;
+
+    private String userType;
 }

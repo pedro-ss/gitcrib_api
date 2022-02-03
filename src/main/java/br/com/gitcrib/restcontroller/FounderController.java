@@ -22,6 +22,7 @@ import br.com.gitcrib.service.FounderService;
 
 @RestController
 @RequestMapping("/founder")
+@CrossOrigin(origins = "*")
 public class FounderController {
 
     @Autowired

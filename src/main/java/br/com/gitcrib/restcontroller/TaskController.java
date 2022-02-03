@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import br.com.gitcrib.service.TaskService;
 
 @RestController
 @RequestMapping("/task")
+@CrossOrigin(origins = "*")
 public class TaskController {
 
     @Autowired
@@ -71,5 +73,11 @@ public class TaskController {
 			throw e;
 		}
     	return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/projects-tasks/{idProject}")
+    @ResponseBody
+    public ResponseEntity<List<TaskDTO>> listFounderProjects(@PathVariable("idProject") Integer idProject) {
+        return ResponseEntity.ok().body(taskService.listProjectTasks(idProject));
     }
 }

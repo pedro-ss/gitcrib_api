@@ -11,7 +11,9 @@ import br.com.gitcrib.dao.FounderDao;
 import br.com.gitcrib.dto.FounderDTO;
 import br.com.gitcrib.model.Founder;
 import br.com.gitcrib.utils.PasswordEncoder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class FounderService {
     
@@ -19,7 +21,7 @@ public class FounderService {
     private FounderDao founderDao;
     
     public FounderDTO cadastrarFounder(FounderDTO founder) {
-    	founder.setPassword(PasswordEncoder.criptografarSenha(founder.getPassword()));
+    	//founder.setPassword(PasswordEncoder.criptografarSenha(founder.getPassword()));
         return convertFounderToDTO(founderDao.save(convertDTOToFounder(founder)));
     }
 
@@ -29,19 +31,19 @@ public class FounderService {
     
     public Optional<FounderDTO> consultarFounder(String email, String senha) throws Exception {
     	
-    	String usuario = email;
     	Optional<FounderDTO> founder = founderDao.findByUserName(email).stream().map(this::convertFounderToDTO).findFirst();
-    	if(founder != null) {
-    		if(PasswordEncoder.verificacaoSenha(founder.get().getPassword(), senha))
+		log.info("Resultado: ", founder);
+    	if(founder.isPresent()) {
+    		if(founder.get().getPassword().equals(senha))
             {
             	return founder;
             } else {
             	throw new Exception("Usuário não encontrado");
             }
     	} else {
-        	throw new Exception("Usuário não encontrado");
+        	log.info("Usuário não encontrado");
         }
-        
+        return Optional.empty();
     }
     public void deletarFounder(Integer founderId) {
         founderDao.deleteById(founderId);

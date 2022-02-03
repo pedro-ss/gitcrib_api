@@ -11,11 +11,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import br.com.gitcrib.utils.annotation.ValidPassword;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FounderDTO {
-	@NotNull
+	
 	private Integer founderId;
 	
 	@NotBlank

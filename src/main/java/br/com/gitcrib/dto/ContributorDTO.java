@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContributorDTO {
-	@NotNull
+
     private Integer contributorId;
 	
     @NotBlank

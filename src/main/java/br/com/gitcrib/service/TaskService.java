@@ -64,4 +64,13 @@ public class TaskService {
     	task.setStatus(taskDTO.getStatus());
 		return task;
     }
+
+    public List<TaskDTO> listProjectTasks(Integer idProject) {
+        List<TaskDTO> listProjectTasks = new ArrayList<>();
+        List<Task> tasksListed = taskDao.findProjectTasks(idProject);
+        tasksListed.forEach(taskItem -> {
+            listProjectTasks.add(convertTaskToDTO(taskItem));
+        });
+        return listProjectTasks;
+    }
 }

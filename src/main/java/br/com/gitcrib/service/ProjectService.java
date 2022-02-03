@@ -69,4 +69,13 @@ public class ProjectService {
     	project.setTasks(projectDTO.getTasks());
     	return project;
     }
+
+	public List<ProjectDTO> listFounderProjects(Integer idFounder) {
+		List<ProjectDTO> listaProjectDto = new ArrayList<>();
+		List<Project>  projects = projectDao.listFounderProjects(idFounder);
+			projects.forEach(founder -> {
+				listaProjectDto.add(convertProjectToDTO(founder));
+			});
+		return listaProjectDto;
+	}
 }

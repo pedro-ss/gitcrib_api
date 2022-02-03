@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import br.com.gitcrib.service.ProjectService;
 
 @RestControllerAdvice
 @RequestMapping("/project")
+@CrossOrigin(origins = "*")
 public class ProjectController {
     
     @Autowired
@@ -55,5 +57,11 @@ public class ProjectController {
     @ResponseBody
     public ResponseEntity<ProjectDTO> alterarProject(@Valid @RequestBody ProjectDTO project) {
         return ResponseEntity.ok(projectService.alterarProject(project));
+    }
+
+    @GetMapping("/founder-projects/{idFounder}")
+    @ResponseBody
+    public ResponseEntity<List<ProjectDTO>> listFounderProjects(@PathVariable("idFounder") Integer idFounder) {
+        return ResponseEntity.ok().body(projectService.listFounderProjects(idFounder));
     }
 }
