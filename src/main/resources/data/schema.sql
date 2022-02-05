@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS task (
 	"task_status" varchar(255) NULL,
 	"title" varchar(255) NULL,
 	"project" int4 NULL,
-	"task" int4 NULL,
 	CONSTRAINT task_pkey PRIMARY KEY (id),
     CONSTRAINT project_id FOREIGN KEY (project) REFERENCES project(id)
 );
@@ -57,10 +56,10 @@ create table if not exists ACTIVITY (
 INSERT INTO FOUNDER (NAME,PASSWORD,POINTS,SINCE,USER_NAME) VALUES ('Godofredo','0Vu30usQx9QGYrMb8Al19XwHltiCHw',0,'2021-01-01','severino');
 INSERT INTO FOUNDER (NAME,PASSWORD,POINTS,SINCE,USER_NAME) VALUES ('Marcos','0Vu30usQx9QGYrMb8Al19XwHltiCHw',0,'2021-02-09','Bill Pullman');
 
-INSERT INTO PROJECT (DESCRIPTION,PROJECT_STATUS,FOUNDER) VALUES ('Projeto em React para faculdade','1',1);
-INSERT INTO PROJECT (DESCRIPTION,PROJECT_STATUS,FOUNDER) VALUES ('Projeto em Python para automação','1',2);
+INSERT INTO PROJECT (DESCRIPTION,PROJECT_STATUS,FOUNDER) VALUES ('Projeto em React para faculdade','ACTIVE',1);
+INSERT INTO PROJECT (DESCRIPTION,PROJECT_STATUS,FOUNDER) VALUES ('Projeto em Python para automação','ACTIVE',2);
 
 
-INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT,TASK) VALUES('implementar função CREATE','1','create func em python', 1,1);
-INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT,TASK) VALUES('implementar função UPDATE','1','create func em python', 1,1);
-INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT,TASK) VALUES('implementar função DELETE','1','create del func em python', 1,1);
+INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT) VALUES('implementar função CREATE','ACTIVE','create func em python', 1);
+INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT) VALUES('implementar função UPDATE','ACTIVE','create func em python', 1);
+INSERT INTO TASK (DESCRIPTION,STATUS,TITLE,PROJECT) VALUES('implementar função DELETE','ACTIVE','create del func em python', 1);
