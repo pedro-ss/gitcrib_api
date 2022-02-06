@@ -9,7 +9,7 @@ import br.com.gitcrib.enums.StatusTasksEnum;
 import lombok.Data;
 @Data
 public class TaskDTO {
-	@NotNull
+	
     private Integer taskId;
 	
 	@NotBlank

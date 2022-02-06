@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gitcrib.dao.ProjectDao;
 import br.com.gitcrib.dao.TaskDao;
 import br.com.gitcrib.dto.TaskDTO;
-import br.com.gitcrib.model.Contributor;
 import br.com.gitcrib.model.Task;
 
 @Service
@@ -17,6 +17,9 @@ public class TaskService {
  
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private ProjectDao projectDao;
 
     public TaskDTO cadastrarTask(TaskDTO task) {
         return convertTaskToDTO(taskDao.save(convertDTOToTask(task)));
@@ -60,7 +63,7 @@ public class TaskService {
     	task.setId(taskDTO.getTaskId());
     	task.setTitle(taskDTO.getTitle());
     	task.setDescription(taskDTO.getDescription());
-    	// task.setProject(taskDTO.getProject());  user repository
+    	task.setProject(projectDao.getById(taskDTO.getProjectId()));
     	task.setStatus(taskDTO.getStatus());
 		return task;
     }
