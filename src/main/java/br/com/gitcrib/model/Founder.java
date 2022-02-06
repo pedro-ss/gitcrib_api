@@ -33,7 +33,7 @@ public class Founder {
     @Column(name = "PASSWORD")
     private String password;
     
-    @Column(name = "NAME")
+    @Column(name = "EMAIL")
     private String email;
     
     @Column(name = "POINTS")

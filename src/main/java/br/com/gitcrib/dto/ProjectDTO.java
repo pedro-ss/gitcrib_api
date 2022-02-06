@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 public class ProjectDTO {
-	@NotNull
+	
 	private Integer projectId;
 	
 	@NotEmpty

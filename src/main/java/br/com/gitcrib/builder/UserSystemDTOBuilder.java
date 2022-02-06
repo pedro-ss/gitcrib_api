@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import br.com.gitcrib.dto.ContributorDTO;
 import br.com.gitcrib.dto.FounderDTO;
 import br.com.gitcrib.dto.UserSystemDTO;
+import br.com.gitcrib.enums.UserTypeEnum;
 
 @Component
 public class UserSystemDTOBuilder {
@@ -18,6 +19,8 @@ public class UserSystemDTOBuilder {
         .password(contributorDTO.getPassword())
         .points(contributorDTO.getPoints())
         .since(contributorDTO.getSince())
+        .userName(contributorDTO.getUserName())
+        .userType(UserTypeEnum.CONTRIBUTOR.getDescription())
         .build());
     }
 
@@ -28,6 +31,8 @@ public class UserSystemDTOBuilder {
         .password(founderDTO.getPassword())
         .points(founderDTO.getPoints())
         .since(founderDTO.getSince())
+        .userName(founderDTO.getUserName())
+        .userType(UserTypeEnum.FOUNDER.getDescription())
         .build());
     }
 

@@ -51,13 +51,13 @@ public class ProjectController {
     @DeleteMapping("/delete-project")
     public ResponseEntity<Void> deletarProject(@RequestBody ProjectDTO project) {
         projectService.deletarProject(project.getProjectId());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     @PutMapping("/update-project")
     @ResponseBody
     public ResponseEntity<ProjectDTO> alterarProject(@Valid @RequestBody ProjectDTO project) {
-        return ResponseEntity.ok(projectService.alterarProject(project));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(projectService.alterarProject(project));
     }
 
     @GetMapping("/founder-projects/{idFounder}")

@@ -21,7 +21,6 @@ public class ContributorService {
     private ContributorDao contributorDao;
     
     public ContributorDTO cadastrarContributor(ContributorDTO contributor) {
-    	//contributor.setPassword(PasswordEncoder.criptografarSenha(contributor.getPassword()));
     	return convertContributorToDTO(contributorDao.save(convertDtoToContributor(contributor)));
     }
 
@@ -31,14 +30,9 @@ public class ContributorService {
     
     public Optional<ContributorDTO> consultarContributor(String email, String senha) throws Exception {
     	
-    	Optional<Contributor> contributorFound = contributorDao.findByEmail(email.trim());
+    	Optional<Contributor> contributorFound = contributorDao.findByEmailPassword(email.trim(), senha.trim());
 		if(contributorFound.isPresent()) {
-			 if(contributorFound.get().getPassword().equals(senha))
-             {
-             	return Optional.of(convertContributorToDTO(contributorFound.get()));
-             } else {
-             	throw new Exception("Usuário não encontrado");
-             }
+			return Optional.of(convertContributorToDTO(contributorFound.get()));
     	} else {
         	log.info("Usuário não encontrado");
     	}

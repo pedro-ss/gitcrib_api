@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gitcrib.dao.FounderDao;
 import br.com.gitcrib.dao.ProjectDao;
 import br.com.gitcrib.dto.ProjectDTO;
 import br.com.gitcrib.model.Founder;
@@ -17,6 +18,9 @@ public class ProjectService {
 
     @Autowired
     private ProjectDao projectDao;
+
+	@Autowired
+	private FounderDao founderDao;
 
     public ProjectDTO cadastrarProject(ProjectDTO project) {
         return convertProjectToDTO(projectDao.save(convertDTOToProject(project)));
@@ -61,7 +65,7 @@ public class ProjectService {
     	project.setId(projectDTO.getProjectId());
     	project.setDescription(projectDTO.getDescription());
     	if(projectDTO.getFounderId() != null) {
-    		Founder founder = new Founder();
+    		Founder founder = founderDao.findById(projectDTO.getFounderId()).get();
     		project.setFounder(founder);
     	}
     	//project.setFounder(projectDTO.getFounder());  user repository
