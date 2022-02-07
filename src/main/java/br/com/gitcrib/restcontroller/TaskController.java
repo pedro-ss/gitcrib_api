@@ -1,5 +1,6 @@
 package br.com.gitcrib.restcontroller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gitcrib.dto.ActivityDTO;
 import br.com.gitcrib.dto.TaskDTO;
+import br.com.gitcrib.model.Activity;
 import br.com.gitcrib.service.ActivityService;
 import br.com.gitcrib.service.TaskService;
 
@@ -30,6 +31,7 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
     @Autowired
     private ActivityService activityService;
 
@@ -51,7 +53,7 @@ public class TaskController {
         return ResponseEntity.ok(taskService.consultarTasks());
     }
 
-    @DeleteMapping("/delete-task")
+    @PostMapping("/delete-task")
     @ResponseBody
     public ResponseEntity<Void> deletarTask(@RequestBody TaskDTO task) {
         taskService.deletarTask(task.getTaskId());
@@ -80,5 +82,21 @@ public class TaskController {
     @ResponseBody
     public ResponseEntity<List<TaskDTO>> listFounderProjects(@PathVariable("idProject") Integer idProject) {
         return ResponseEntity.ok().body(taskService.listProjectTasks(idProject));
+    }
+
+    @GetMapping("/contributor-tasks/{idContributor}")
+    @ResponseBody
+    public ResponseEntity<List<TaskDTO>> listContributorTasks(@PathVariable("idContributor") Integer idContributor) {
+        List<TaskDTO> contributorTasks = new ArrayList<>();
+        List<Activity> activities = activityService.buscarAcivitiviesPorContributor(idContributor);
+        
+        activities.forEach(activity -> {
+            Optional<TaskDTO> task = taskService.consultarTask(activity.getTask().getId());
+            if(task.isPresent()){
+                contributorTasks.add(task.get());
+            }
+        });
+
+        return ResponseEntity.ok().body(contributorTasks);
     }
 }
