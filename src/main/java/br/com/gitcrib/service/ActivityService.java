@@ -44,4 +44,12 @@ public class ActivityService {
 		return activityDao.getAllActivatedActivitiesByContributor(idContributor);
 	}
 
+	public Activity findActivityByContributorTask(Integer idContributor, Integer idTask) {
+		return activityDao.findActivityByContributorTask(idContributor, idTask);
+	}
+
+	public void deletarActivity(Integer idActivity) {
+		activityDao.deleteById(idActivity);
+	}
+
 }

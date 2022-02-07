@@ -48,7 +48,7 @@ public class ProjectController {
         return ResponseEntity.ok().body(projectService.consultarProjects());
     }
 
-    @DeleteMapping("/delete-project")
+    @PostMapping("/delete-project")
     public ResponseEntity<Void> deletarProject(@RequestBody ProjectDTO project) {
         projectService.deletarProject(project.getProjectId());
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
